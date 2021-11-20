@@ -1,3 +1,4 @@
+import 'package:proyecto_final/pages/silverAppBar.dart';
 import 'package:proyecto_final/pages/create_person_page.dart';
 import 'package:proyecto_final/pages/form_add_employed.dart';
 import 'package:flutter/material.dart';
@@ -39,15 +40,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Start',
+      'Error 458',
       style: optionStyle,
     ),
     CreatePersonPage(),
     FormAddEmployed(),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
+    SilverAppbar(),
   ];
 
   void _onItemTapped(int index) {
@@ -77,7 +75,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.contact_page_outlined),
             label: 'Form',
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.brown,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

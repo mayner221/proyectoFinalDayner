@@ -21,7 +21,8 @@ class _FormAddEmployedState extends State<FormAddEmployed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('hola'),
+        title: const Text('Registros'),
+        backgroundColor: Colors.brown,
         actions: [
           GestureDetector(
             onTap: () => callServiceGetListPerson(),
@@ -45,17 +46,24 @@ class _FormAddEmployedState extends State<FormAddEmployed> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      leading: Icon(Icons.people),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/gallery/59c4f5655bafe82c692a7052/gato-marron_0.jpg'),
+                      ),
                       title: Text(
                           '${listPersons[index].lastname} ${listPersons[index].name}'),
-                      subtitle: Text('${listPersons[index].id!} '),
+                      subtitle: Text('${listPersons[index].id!} ${listPersons[index].direccion!}'),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         TextButton(
                           child: const Text('Editar'),
-                          onPressed: () {},
+                          onPressed: () {
+                            callServiceUpdatePerson(
+                              listPersons[index].id!,
+                            );
+                          },
                         ),
                         const SizedBox(width: 8),
                         TextButton(
@@ -116,6 +124,38 @@ class _FormAddEmployedState extends State<FormAddEmployed> {
         return false;
       }
     } catch (e) {}
+  }
+
+  Future callServiceUpdatePerson(
+    String id,
+  ) async {
+    var person = Person(
+        id: "53",
+        name: "name1",
+        lastname: "lastname1",
+        direccion: "direccion1",
+        fechaNacimiento: "fechaNacimiento1",
+        salario: "salario1",
+        fechaIngreso: "fechaIngreso1");
+
+    var personBody = jsonEncode(person);
+
+    var url =
+        Uri.parse('https://619040abf6bf450017484bb3.mockapi.io/Persons/' + id);
+
+    Response response = await http.post(
+      url,
+      body: personBody,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(url);
+    } else {
+      print(url);
+    }
   }
 
   // static Future<String> updateEmployed(
